@@ -29,8 +29,14 @@ jobs:
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v1
       with:
-        node-version: ${{ matrix.node-version }} 
-
+        node-version: ${{ matrix.node-version }}
+    - name: npm install
+        # Install project
+      run: |
+          make install
+        # Add environment variables
+      env:
+          CI: true
     # Runs a set of commands using the runners shell
     - name: Run linter
       run: |
