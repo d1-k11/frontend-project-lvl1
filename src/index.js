@@ -9,27 +9,23 @@ export const greeting = () => {
   return name;
 };
 
+export const conditionOf = (condition) => console.log(condition);
 
-export const condition = () => console.log('Answer "yes" if the number is even, otherwise answer "no".');
-
-
-export const evenOrNot = (name, round = 0) => {
+export const quiz = (name, condition, randomExpressionGen, prepareExp, round = 0) => {
   if (round === 3) {
     return console.log(`Congratulations, ${name}!`);
   }
 
-  const randomNumGen = () => Math.floor(Math.random() * 100);
-  const num = randomNumGen();
-  console.log(`Question: ${num}`);
+  const expression = randomExpressionGen();
+  console.log(`Question: ${expression}`);
 
   const getAnswer = readlineSync.question('Your answer: ');
 
-  const numEvenCheck = (num % 2 === 0) ? 'yes' : 'no';
-
-  if (numEvenCheck !== getAnswer) {
-    console.log(`"${getAnswer}" is wrong answer ;(. Correct answer was "${numEvenCheck}". \nLet's try again, ${name}!`);
+  const check = prepareExp(expression);
+  if (check != getAnswer) {
+    console.log(`"${getAnswer}" is wrong answer ;(. Correct answer was "${check}". \nLet's try again, ${name}!`);
   } else {
     console.log('Correct!');
-    evenOrNot(name, round + 1);
+    quiz(name, condition, randomExpressionGen, prepareExp, round + 1);
   }
 };
