@@ -1,5 +1,6 @@
 import readlineSync from 'readline-sync';
 
+export const randomGen = (mltplr) => Math.floor(1 + Math.random() * mltplr);
 
 export const greeting = () => {
   console.log('Welcome to the Brain Games!');

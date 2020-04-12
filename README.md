@@ -2,8 +2,10 @@
 ![CI](https://github.com/d1-k11/frontend-project-lvl1/workflows/CI/badge.svg)
 
 brain-even:
-[![asciicast](https://asciinema.org/a/QhdkLL5biTnymm3eeQ7YCBwQu.svg)](https://asciinema.org/a/QhdkLL5biTnymm3eeQ7YCBwQu)
+[![asciicast](https://asciinema.org/a/F91CMaUTvUEGn7Sgr7dyjAdDU.svg)](https://asciinema.org/a/F91CMaUTvUEGn7Sgr7dyjAdDU)
 
 brain-calc:
 [![asciicast](https://asciinema.org/a/ekA1yWSmQkUT800H6G0QTapvO.svg)](https://asciinema.org/a/ekA1yWSmQkUT800H6G0QTapvO)
 
+brain-gcd:
+[![asciicast](https://asciinema.org/a/ibDfI5EIDF4Qk0qmPBhhEvYY7.svg)](https://asciinema.org/a/ibDfI5EIDF4Qk0qmPBhhEvYY7)
