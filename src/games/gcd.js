@@ -3,8 +3,8 @@ import { randomGen } from '../index.js';
 export const condition = 'Find the greatest common divisor of given numbers.';
 
 export const randomExpressionGen = () => {
-  const num1 = randomGen(100);
-  const num2 = randomGen(100);
+  const num1 = 1 + randomGen(100);
+  const num2 = 1 + randomGen(100);
   return `${num1} ${num2}`;
 };
 
