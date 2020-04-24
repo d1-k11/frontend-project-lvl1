@@ -53,5 +53,5 @@ export const prepareExp = (string) => {
   const intersection = getIntersectionOfArrays(mltplrsOfNum1, mltplrsOfNum2);
   const reducer = (acc, currentValue) => acc * currentValue;
   const getGcd = intersection.reduce(reducer);
-  return getGcd;
+  return `${getGcd}`;
 };

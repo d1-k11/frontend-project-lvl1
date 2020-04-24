@@ -23,7 +23,7 @@ export const quiz = (name, condition, randomExpressionGen, prepareExp, round = 0
   const getAnswer = readlineSync.question('Your answer: ');
 
   const check = prepareExp(expression);
-  if (check != getAnswer) {
+  if (check !== getAnswer) {
     console.log(`"${getAnswer}" is wrong answer ;(. Correct answer was "${check}". \nLet's try again, ${name}!`);
   } else {
     console.log('Correct!');
