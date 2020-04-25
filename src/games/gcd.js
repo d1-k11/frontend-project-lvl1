@@ -8,7 +8,7 @@ export const randomExpressionGen = () => {
   return `${num1} ${num2}`;
 };
 
-const factorizator = (num, div = 2, arr = [1]) => {
+export const factorizator = (num, div = 2, arr = [1]) => {
   if (num === 1) {
     return arr;
   }
