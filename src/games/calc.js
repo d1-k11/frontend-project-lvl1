@@ -1,8 +1,10 @@
-import { randomGen } from '../index.js';
+import {
+  randomGen, quiz, greeting, conditionOf,
+} from '../index.js';
 
-export const condition = 'What is the result of the expression?';
+const condition = 'What is the result of the expression?';
 
-export const randomExpressionGen = () => {
+const randomExpressionGen = () => {
   const num1 = randomGen(100);
   const num2 = randomGen(50);
   const arr = [`${num1} + ${num2}`, `${num1} - ${num2}`, `${num1} * ${num2}`];
@@ -10,7 +12,17 @@ export const randomExpressionGen = () => {
   return arr[rand];
 };
 
-export const prepareExp = (exp) => {
-  const calc = eval(exp);
-  return `${calc}`;
+const prepareExp = (exp) => {
+  const strToArr = exp.split(' ');
+  if (strToArr[1] === '+') {
+    return `${Number(strToArr[0]) + Number(strToArr[2])}`;
+  }
+  if (strToArr[1] === '-') {
+    return `${Number(strToArr[0]) - Number(strToArr[2])}`;
+  }
+  return `${Number(strToArr[0]) * Number(strToArr[2])}`;
 };
+
+const startCalc = () => quiz(greeting(), conditionOf(condition), randomExpressionGen, prepareExp);
+
+export default startCalc;

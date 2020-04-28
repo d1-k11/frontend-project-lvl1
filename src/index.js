@@ -16,12 +16,9 @@ export const quiz = (name, condition, randomExpressionGen, prepareExp, round = 0
   if (round === 3) {
     return console.log(`Congratulations, ${name}!`);
   }
-
   const expression = randomExpressionGen();
   console.log(`Question: ${expression}`);
-
   const getAnswer = readlineSync.question('Your answer: ');
-
   const check = prepareExp(expression);
   if (check !== getAnswer) {
     console.log(`"${getAnswer}" is wrong answer ;(. Correct answer was "${check}". \nLet's try again, ${name}!`);
@@ -29,4 +26,5 @@ export const quiz = (name, condition, randomExpressionGen, prepareExp, round = 0
     console.log('Correct!');
     quiz(name, condition, randomExpressionGen, prepareExp, round + 1);
   }
+  return 1;
 };

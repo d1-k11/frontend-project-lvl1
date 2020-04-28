@@ -1,8 +1,10 @@
-import { randomGen } from '../index.js';
+import {
+  randomGen, quiz, greeting, conditionOf,
+} from '../index.js';
 
-export const condition = 'What number is missing in the progression?';
+const condition = 'What number is missing in the progression?';
 
-export const randomExpressionGen = () => {
+const randomExpressionGen = () => {
   const a = randomGen(100);
   const d = randomGen(10) + 1;
   const arr = [a];
@@ -15,9 +17,13 @@ export const randomExpressionGen = () => {
   return arrToStr;
 };
 
-export const prepareExp = (exp) => {
+const prepareExp = (exp) => {
   const strToArr = exp.split(' ');
   const index = strToArr.indexOf('..');
   const missingItem = (Number(strToArr[index - 1]) + Number(strToArr[index + 1])) / 2;
   return `${missingItem}`;
 };
+
+const startPrgrsn = () => quiz(greeting(), conditionOf(condition), randomExpressionGen, prepareExp);
+
+export default startPrgrsn;

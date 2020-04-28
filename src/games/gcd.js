@@ -1,8 +1,10 @@
-import { randomGen } from '../index.js';
+import {
+  randomGen, quiz, greeting, conditionOf,
+} from '../index.js';
 
-export const condition = 'Find the greatest common divisor of given numbers.';
+const condition = 'Find the greatest common divisor of given numbers.';
 
-export const randomExpressionGen = () => {
+const randomExpressionGen = () => {
   const num1 = 1 + randomGen(100);
   const num2 = 1 + randomGen(100);
   return `${num1} ${num2}`;
@@ -41,7 +43,7 @@ const getIntersectionOfArrays = (arr1, arr2) => {
   return result;
 };
 
-export const prepareExp = (string) => {
+const prepareExp = (string) => {
   const strToArr = string.split([' ']);
   const strToNum = (i) => Number(strToArr[i]);
   const num1 = strToNum(0);
@@ -55,3 +57,7 @@ export const prepareExp = (string) => {
   const getGcd = intersection.reduce(reducer);
   return `${getGcd}`;
 };
+
+const startGcd = () => quiz(greeting(), conditionOf(condition), randomExpressionGen, prepareExp);
+
+export default startGcd;
