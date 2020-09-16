@@ -1,16 +1,18 @@
 import readlineSync from 'readline-sync';
 
-export const randomGen = (mltplr) => Math.floor(Math.random() * mltplr);
-
-export const greeting = () => {
-  console.log('Welcome to the Brain Games!');
-  const getName = readlineSync.question('May I have your name? ');
-  console.log(`Hello, ${getName}!`);
-  const name = getName;
-  return name;
+export const randomGen = (min, max) => {
+  const rand = min + Math.random() * (max + 1 - min);
+  return Math.floor(rand);
 };
 
-export const conditionOf = (condition) => console.log(condition);
+export const greeting = () => console.log('Welcome to the Brain Games!');
+
+export const getName = () => {
+  const askName = readlineSync.question('May I have your name? ');
+  console.log(`Hello, ${askName}!`);
+  const name = askName;
+  return name;
+};
 
 export const quiz = (name, condition, randomExpressionGen, prepareExp, round = 0) => {
   if (round === 3) {

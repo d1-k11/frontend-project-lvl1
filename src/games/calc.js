@@ -1,28 +1,38 @@
 import {
-  randomGen, quiz, greeting, conditionOf,
+  randomGen, quiz, getName, greeting,
 } from '../index.js';
 
-const condition = 'What is the result of the expression?';
+const condition = () => console.log('What is the result of the expression?');
 
 const randomExpressionGen = () => {
-  const num1 = randomGen(100);
-  const num2 = randomGen(50);
+  const num1 = randomGen(7, 14);
+  const num2 = randomGen(1, 7);
   const arr = [`${num1} + ${num2}`, `${num1} - ${num2}`, `${num1} * ${num2}`];
-  const rand = randomGen(arr.length);
+  const rand = randomGen(0, arr.length - 1);
   return arr[rand];
 };
 
 const prepareExp = (exp) => {
+  let answer;
   const strToArr = exp.split(' ');
-  if (strToArr[1] === '+') {
-    return `${Number(strToArr[0]) + Number(strToArr[2])}`;
+  switch (strToArr[1]) {
+    case '+':
+      answer = `${Number(strToArr[0]) + Number(strToArr[2])}`;
+      break;
+
+    case '-':
+      answer = `${Number(strToArr[0]) - Number(strToArr[2])}`;
+      break;
+
+    default:
+      answer = `${Number(strToArr[0]) * Number(strToArr[2])}`;
+      break;
   }
-  if (strToArr[1] === '-') {
-    return `${Number(strToArr[0]) - Number(strToArr[2])}`;
-  }
-  return `${Number(strToArr[0]) * Number(strToArr[2])}`;
+  return answer;
 };
 
-const startCalc = () => quiz(greeting(), conditionOf(condition), randomExpressionGen, prepareExp);
-
+const startCalc = () => {
+  greeting();
+  quiz(getName(), condition(), randomExpressionGen, prepareExp);
+};
 export default startCalc;

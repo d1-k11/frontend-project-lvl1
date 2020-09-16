@@ -1,19 +1,27 @@
-import { factorizator } from './gcd.js';
 import {
-  randomGen, quiz, greeting, conditionOf,
+  randomGen, quiz, getName, greeting,
 } from '../index.js';
 
 
-const condition = 'Answer "yes" if given number is prime. Otherwise answer "no".';
+const condition = () => console.log('Answer "yes" if given number is prime. Otherwise answer "no".');
 
-const randomExpressionGen = () => 1 + randomGen(100);
+const randomExpressionGen = () => randomGen(1, 100);
 
 const prepareExp = (str) => {
-  const mltplrsOfNum = factorizator(Number(str));
-  const result = ((mltplrsOfNum.length === 2) ? 'yes' : 'no');
-  return result;
+  const num = Number(str);
+  if (num <= 1) {
+    return 'no';
+  }
+  for (let i = 2; i * i <= num; i += 1) {
+    if (num % i === 0) {
+      return 'no';
+    }
+  }
+  return 'yes';
 };
 
-const startPrime = () => quiz(greeting(), conditionOf(condition), randomExpressionGen, prepareExp);
-
+const startPrime = () => {
+  greeting();
+  quiz(getName(), condition(), randomExpressionGen, prepareExp);
+};
 export default startPrime;

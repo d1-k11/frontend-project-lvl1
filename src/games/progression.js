@@ -1,17 +1,18 @@
 import {
-  randomGen, quiz, greeting, conditionOf,
+  randomGen, quiz, getName, greeting,
 } from '../index.js';
 
-const condition = 'What number is missing in the progression?';
+const condition = () => console.log('What number is missing in the progression?');
 
 const randomExpressionGen = () => {
-  const a = randomGen(100);
-  const d = randomGen(10) + 1;
+  const a = randomGen(0, 100);
+  const d = randomGen(1, 9);
   const arr = [a];
-  for (let i = 0; i < 9; i += 1) {
-    arr.push(arr[i] + d);
+  const maxArrLength = 10;
+  for (let i = 1; i < maxArrLength; i += 1) {
+    arr.push(arr[i - 1] + d);
   }
-  const getRandomIndex = 1 + randomGen(arr.length - 2);
+  const getRandomIndex = randomGen(1, arr.length - 2);
   arr[getRandomIndex] = '..';
   const arrToStr = arr.join(' ');
   return arrToStr;
@@ -24,6 +25,8 @@ const prepareExp = (exp) => {
   return `${missingItem}`;
 };
 
-const startPrgrsn = () => quiz(greeting(), conditionOf(condition), randomExpressionGen, prepareExp);
-
+const startPrgrsn = () => {
+  greeting();
+  quiz(getName(), condition(), randomExpressionGen, prepareExp);
+};
 export default startPrgrsn;
