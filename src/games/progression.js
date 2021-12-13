@@ -1,8 +1,12 @@
 import {
-  randomGen, quiz, getName, greeting,
-} from '../index.js';
+  getName, greeting, hello,
+} from '../cli.js';
 
-const condition = () => console.log('What number is missing in the progression?');
+import quiz from '../index.js';
+
+import randomGen from '../randomGen.js';
+
+const condition = console.log('What number is missing in the progression?');
 
 const randomExpressionGen = () => {
   const a = randomGen(0, 100);
@@ -26,7 +30,7 @@ const prepareExp = (exp) => {
 };
 
 const startPrgrsn = () => {
-  greeting();
-  quiz(getName(), condition(), randomExpressionGen, prepareExp);
+  quiz(greeting, getName, condition, hello, randomExpressionGen, prepareExp);
 };
+
 export default startPrgrsn;

@@ -1,8 +1,12 @@
 import {
-  randomGen, quiz, getName, greeting,
-} from '../index.js';
+  getName, greeting, hello,
+} from '../cli.js';
 
-const condition = () => console.log('What is the result of the expression?');
+import quiz from '../index.js';
+
+import randomGen from '../randomGen.js';
+
+const condition = console.log('What is the result of the expression?');
 
 const randomExpressionGen = () => {
   const num1 = randomGen(7, 14);
@@ -12,27 +16,32 @@ const randomExpressionGen = () => {
   return arr[rand];
 };
 
-const prepareExp = (exp) => {
-  let answer;
-  const strToArr = exp.split(' ');
-  switch (strToArr[1]) {
+const calc = (arr) => {
+  let result;
+  switch (arr[1]) {
     case '+':
-      answer = `${Number(strToArr[0]) + Number(strToArr[2])}`;
+      result = `${Number(arr[0]) + Number(arr[2])}`;
       break;
 
     case '-':
-      answer = `${Number(strToArr[0]) - Number(strToArr[2])}`;
+      result = `${Number(arr[0]) - Number(arr[2])}`;
       break;
 
     default:
-      answer = `${Number(strToArr[0]) * Number(strToArr[2])}`;
+      result = `${Number(arr[0]) * Number(arr[2])}`;
       break;
   }
+  return result;
+};
+
+const prepareExp = (exp) => {
+  const strToArr = exp.split(' ');
+  const answer = calc(strToArr);
   return answer;
 };
 
 const startCalc = () => {
-  greeting();
-  quiz(getName(), condition(), randomExpressionGen, prepareExp);
+  quiz(greeting, getName, condition, hello, randomExpressionGen, prepareExp);
 };
+
 export default startCalc;

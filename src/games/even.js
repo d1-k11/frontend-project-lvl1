@@ -1,16 +1,19 @@
-
 import {
-  randomGen, quiz, getName, greeting,
-} from '../index.js';
+  getName, greeting, hello,
+} from '../cli.js';
 
-const condition = () => console.log('Answer "yes" if the number is even, otherwise answer "no".');
+import quiz from '../index.js';
+
+import randomGen from '../randomGen.js';
+
+const condition = console.log('Answer "yes" if the number is even, otherwise answer "no".');
 
 const randomExpressionGen = () => randomGen(1, 100);
 
 const prepareExp = (exp) => ((exp % 2 === 0) ? 'yes' : 'no');
 
 const startEven = () => {
-  greeting();
-  quiz(getName(), condition(), randomExpressionGen, prepareExp);
+  quiz(greeting, getName, hello, condition, randomExpressionGen, prepareExp);
 };
+
 export default startEven;

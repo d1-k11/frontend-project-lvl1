@@ -1,9 +1,12 @@
 import {
-  randomGen, quiz, getName, greeting,
-} from '../index.js';
+  getName, greeting, hello,
+} from '../cli.js';
 
+import quiz from '../index.js';
 
-const condition = () => console.log('Answer "yes" if given number is prime. Otherwise answer "no".');
+import randomGen from '../randomGen.js';
+
+const condition = console.log('Answer "yes" if given number is prime. Otherwise answer "no".');
 
 const randomExpressionGen = () => randomGen(1, 100);
 
@@ -21,7 +24,7 @@ const prepareExp = (str) => {
 };
 
 const startPrime = () => {
-  greeting();
-  quiz(getName(), condition(), randomExpressionGen, prepareExp);
+  quiz(greeting, getName, condition, hello, randomExpressionGen, prepareExp);
 };
+
 export default startPrime;
