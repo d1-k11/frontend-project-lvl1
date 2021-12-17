@@ -1,20 +1,20 @@
-import {
-  getName, greeting, hello,
-} from '../cli.js';
+import startBrainGames from '../cli.js';
 
-import quiz from '../index.js';
+import startQuiz from '../index.js';
 
-import randomGen from '../randomGen.js';
+import genRandomNum from '../randomGen.js';
+
+const name = startBrainGames();
 
 const condition = console.log('Find the greatest common divisor of given numbers.');
 
-const randomExpressionGen = () => {
-  const num1 = randomGen(1, 100);
-  const num2 = randomGen(1, 100);
+const genRandomExpression = () => {
+  const num1 = genRandomNum(1, 100);
+  const num2 = genRandomNum(1, 100);
   return `${num1} ${num2}`;
 };
 
-const gcdCalc = (num1, num2) => {
+const getGcd = (num1, num2) => {
   let a = num1;
   let b = num2;
   while (a !== 0 && b !== 0) {
@@ -27,17 +27,17 @@ const gcdCalc = (num1, num2) => {
   return `${a + b}`;
 };
 
-const prepareExp = (str) => {
+const prepareExpression = (str) => {
   const strToArr = str.split([' ']);
-  const numFromArr = (i) => Number(strToArr[i]);
-  const num1 = numFromArr(0);
-  const num2 = numFromArr(1);
-  const result = gcdCalc(num1, num2);
+  const getNumFromArr = (i) => Number(strToArr[i]);
+  const num1 = getNumFromArr(0);
+  const num2 = getNumFromArr(1);
+  const result = getGcd(num1, num2);
   return result;
 };
 
 const startGcd = () => {
-  quiz(greeting, getName, condition, hello, randomExpressionGen, prepareExp);
+  startQuiz(name, condition, genRandomExpression, prepareExpression);
 };
 
 export default startGcd;

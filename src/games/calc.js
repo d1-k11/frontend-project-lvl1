@@ -1,47 +1,50 @@
-import {
-  getName, greeting, hello,
-} from '../cli.js';
+import startBrainGames from '../cli.js';
 
-import quiz from '../index.js';
+import startQuiz from '../index.js';
 
-import randomGen from '../randomGen.js';
+import genRandomNum from '../randomGen.js';
+
+const name = startBrainGames();
 
 const condition = console.log('What is the result of the expression?');
 
-const randomExpressionGen = () => {
-  const num1 = randomGen(7, 14);
-  const num2 = randomGen(1, 7);
-  const arr = [`${num1} + ${num2}`, `${num1} - ${num2}`, `${num1} * ${num2}`];
-  const rand = randomGen(0, arr.length - 1);
-  return arr[rand];
+const genRandomExpression = () => {
+  const num1 = genRandomNum(7, 14);
+  const num2 = genRandomNum(1, 7);
+  const expressions = [`${num1} + ${num2}`, `${num1} - ${num2}`, `${num1} * ${num2}`];
+  const randomExpression = genRandomNum(0, expressions.length - 1);
+  return expressions[randomExpression];
 };
 
-const calc = (arr) => {
+const doCalc = (num1, num2, operator) => {
   let result;
-  switch (arr[1]) {
+  switch (operator) {
     case '+':
-      result = `${Number(arr[0]) + Number(arr[2])}`;
+      result = `${num1 + num2}`;
       break;
 
     case '-':
-      result = `${Number(arr[0]) - Number(arr[2])}`;
+      result = `${num1 - num2}`;
       break;
 
     default:
-      result = `${Number(arr[0]) * Number(arr[2])}`;
+      result = `${num1 * num2}`;
       break;
   }
   return result;
 };
 
-const prepareExp = (exp) => {
+const prepareExpression = (exp) => {
   const strToArr = exp.split(' ');
-  const answer = calc(strToArr);
+  const num1 = Number(strToArr[0]);
+  const num2 = Number(strToArr[2]);
+  const operator = strToArr[1];
+  const answer = doCalc(num1, num2, operator);
   return answer;
 };
 
 const startCalc = () => {
-  quiz(greeting, getName, condition, hello, randomExpressionGen, prepareExp);
+  startQuiz(name, condition, genRandomExpression, prepareExpression);
 };
 
 export default startCalc;

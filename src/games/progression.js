@@ -1,36 +1,46 @@
-import {
-  getName, greeting, hello,
-} from '../cli.js';
+import startBrainGames from '../cli.js';
 
-import quiz from '../index.js';
+import startQuiz from '../index.js';
 
-import randomGen from '../randomGen.js';
+import genRandomNum from '../randomGen.js';
+
+const name = startBrainGames();
 
 const condition = console.log('What number is missing in the progression?');
 
-const randomExpressionGen = () => {
-  const a = randomGen(0, 100);
-  const d = randomGen(1, 9);
-  const arr = [a];
-  const maxArrLength = 10;
-  for (let i = 1; i < maxArrLength; i += 1) {
-    arr.push(arr[i - 1] + d);
+const genRange = (a, b) => {
+  const maxRangeLength = 10;
+  const range = [];
+  for (let i = 0; i < maxRangeLength; i += 1) {
+    range.push(a[0] + b * i);
   }
-  const getRandomIndex = randomGen(1, arr.length - 2);
-  arr[getRandomIndex] = '..';
-  const arrToStr = arr.join(' ');
+  return range;
+};
+
+const hideRandomIndex = (range) => {
+  const RandomIndex = genRandomNum(1, range.length - 2);
+  const rangeWithSecret = range;
+  rangeWithSecret[RandomIndex] = '..';
+  return rangeWithSecret;
+};
+
+const genRandomExpression = () => {
+  const startRange = [genRandomNum(0, 100)];
+  const diff = genRandomNum(1, 9);
+  const numbers = hideRandomIndex(genRange(startRange, diff));
+  const arrToStr = numbers.join(' ');
   return arrToStr;
 };
 
-const prepareExp = (exp) => {
+const prepareExpression = (exp) => {
   const strToArr = exp.split(' ');
   const index = strToArr.indexOf('..');
   const missingItem = (Number(strToArr[index - 1]) + Number(strToArr[index + 1])) / 2;
   return `${missingItem}`;
 };
 
-const startPrgrsn = () => {
-  quiz(greeting, getName, condition, hello, randomExpressionGen, prepareExp);
+const startProgression = () => {
+  startQuiz(name, condition, genRandomExpression, prepareExpression);
 };
 
-export default startPrgrsn;
+export default startProgression;

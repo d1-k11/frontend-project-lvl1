@@ -1,19 +1,19 @@
-import {
-  getName, greeting, hello,
-} from '../cli.js';
+import startBrainGames from '../cli.js';
 
-import quiz from '../index.js';
+import startQuiz from '../index.js';
 
-import randomGen from '../randomGen.js';
+import genRandomNum from '../randomGen.js';
+
+const name = startBrainGames();
 
 const condition = console.log('Answer "yes" if the number is even, otherwise answer "no".');
 
-const randomExpressionGen = () => randomGen(1, 100);
+const genRandomExpression = () => genRandomNum(1, 100);
 
-const prepareExp = (exp) => ((exp % 2 === 0) ? 'yes' : 'no');
+const prepareExpression = (exp) => ((exp % 2 === 0) ? 'yes' : 'no');
 
 const startEven = () => {
-  quiz(greeting, getName, hello, condition, randomExpressionGen, prepareExp);
+  startQuiz(name, condition, genRandomExpression, prepareExpression);
 };
 
 export default startEven;

@@ -1,30 +1,31 @@
-import {
-  getName, greeting, hello,
-} from '../cli.js';
+import startBrainGames from '../cli.js';
 
-import quiz from '../index.js';
+import startQuiz from '../index.js';
 
-import randomGen from '../randomGen.js';
+import genRandomNum from '../randomGen.js';
+
+const name = startBrainGames();
 
 const condition = console.log('Answer "yes" if given number is prime. Otherwise answer "no".');
 
-const randomExpressionGen = () => randomGen(1, 100);
+const genRandomExpression = () => genRandomNum(1, 100);
 
-const prepareExp = (str) => {
-  const num = Number(str);
-  if (num <= 1) {
-    return 'no';
+const isPrime = (num) => {
+  if (num === 1) {
+    return false;
   }
   for (let i = 2; i * i <= num; i += 1) {
     if (num % i === 0) {
-      return 'no';
+      return false;
     }
   }
-  return 'yes';
+  return true;
 };
 
+const prepareExpression = (str) => ((isPrime(Number(str)) === true) ? 'yes' : 'no');
+
 const startPrime = () => {
-  quiz(greeting, getName, condition, hello, randomExpressionGen, prepareExp);
+  startQuiz(name, condition, genRandomExpression, prepareExpression);
 };
 
 export default startPrime;
