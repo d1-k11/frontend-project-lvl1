@@ -1,14 +1,12 @@
-import startBrainGames from '../cli.js';
-
 import startQuiz from '../index.js';
-
 import genRandomNum from '../randomGen.js';
+import { genListOfQuestions, genListOfAnswers } from '../listGenerators.js';
 
-const name = startBrainGames();
+const description = 'Answer "yes" if given number is prime. Otherwise answer "no".';
 
-const condition = console.log('Answer "yes" if given number is prime. Otherwise answer "no".');
-
-const genRandomExpression = () => genRandomNum(1, 100);
+const minNum = 1;
+const maxNum = 100;
+const genQuestion = () => genRandomNum(minNum, maxNum);
 
 const isPrime = (num) => {
   if (num === 1) {
@@ -22,10 +20,16 @@ const isPrime = (num) => {
   return true;
 };
 
-const prepareExpression = (str) => ((isPrime(Number(str)) === true) ? 'yes' : 'no');
+const getAnswer = (value) => {
+  const result = (isPrime(value) === true) ? 'yes' : 'no';
+  return result;
+};
+
+const questions = genListOfQuestions(genQuestion);
+const correctAnswers = genListOfAnswers(getAnswer, questions);
 
 const startPrime = () => {
-  startQuiz(name, condition, genRandomExpression, prepareExpression);
+  startQuiz(description, questions, correctAnswers);
 };
 
 export default startPrime;

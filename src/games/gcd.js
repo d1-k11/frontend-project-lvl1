@@ -1,16 +1,14 @@
-import startBrainGames from '../cli.js';
-
 import startQuiz from '../index.js';
-
 import genRandomNum from '../randomGen.js';
+import { genListOfQuestions, genListOfAnswers } from '../listGenerators.js';
 
-const name = startBrainGames();
+const description = 'Find the greatest common divisor of given numbers.';
 
-const condition = console.log('Find the greatest common divisor of given numbers.');
-
-const genRandomExpression = () => {
-  const num1 = genRandomNum(1, 100);
-  const num2 = genRandomNum(1, 100);
+const genQuestion = () => {
+  const minNum = 1;
+  const maxNum = 100;
+  const num1 = genRandomNum(minNum, maxNum);
+  const num2 = genRandomNum(minNum, maxNum);
   return `${num1} ${num2}`;
 };
 
@@ -24,20 +22,23 @@ const getGcd = (num1, num2) => {
       b %= a;
     }
   }
-  return `${a + b}`;
+  return a + b;
 };
 
-const prepareExpression = (str) => {
-  const strToArr = str.split([' ']);
-  const getNumFromArr = (i) => Number(strToArr[i]);
+const getAnswer = (value) => {
+  const pair = value.split([' ']);
+  const getNumFromArr = (i) => Number(pair[i]);
   const num1 = getNumFromArr(0);
   const num2 = getNumFromArr(1);
   const result = getGcd(num1, num2);
-  return result;
+  return String(result);
 };
 
+const questions = genListOfQuestions(genQuestion);
+const correctAnswers = genListOfAnswers(getAnswer, questions);
+
 const startGcd = () => {
-  startQuiz(name, condition, genRandomExpression, prepareExpression);
+  startQuiz(description, questions, correctAnswers);
 };
 
 export default startGcd;

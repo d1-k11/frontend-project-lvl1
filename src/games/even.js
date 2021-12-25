@@ -1,19 +1,23 @@
-import startBrainGames from '../cli.js';
-
 import startQuiz from '../index.js';
-
 import genRandomNum from '../randomGen.js';
+import { genListOfQuestions, genListOfAnswers } from '../listGenerators.js';
 
-const name = startBrainGames();
+const description = 'Answer "yes" if the number is even, otherwise answer "no".';
 
-const condition = console.log('Answer "yes" if the number is even, otherwise answer "no".');
+const minNum = 1;
+const maxNum = 100;
+const genQuestion = () => genRandomNum(minNum, maxNum);
 
-const genRandomExpression = () => genRandomNum(1, 100);
+const getAnswer = (value) => {
+  const result = (value % 2 === 0) ? 'yes' : 'no';
+  return result;
+};
 
-const prepareExpression = (exp) => ((exp % 2 === 0) ? 'yes' : 'no');
+const questions = genListOfQuestions(genQuestion);
+const correctAnswers = genListOfAnswers(getAnswer, questions);
 
 const startEven = () => {
-  startQuiz(name, condition, genRandomExpression, prepareExpression);
+  startQuiz(description, questions, correctAnswers);
 };
 
 export default startEven;

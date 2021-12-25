@@ -1,12 +1,8 @@
-import startBrainGames from '../cli.js';
-
 import startQuiz from '../index.js';
-
 import genRandomNum from '../randomGen.js';
+import { genListOfQuestions, genListOfAnswers } from '../listGenerators.js';
 
-const name = startBrainGames();
-
-const condition = console.log('What number is missing in the progression?');
+const description = 'What number is missing in the progression?';
 
 const genRange = (a, b) => {
   const maxRangeLength = 10;
@@ -18,29 +14,37 @@ const genRange = (a, b) => {
 };
 
 const hideRandomIndex = (range) => {
-  const RandomIndex = genRandomNum(1, range.length - 2);
+  const minPositionOfIndex = 1;
+  const maxPositionOfIndex = range.length - 1;
+  const RandomIndex = genRandomNum(minPositionOfIndex, maxPositionOfIndex);
   const rangeWithSecret = range;
   rangeWithSecret[RandomIndex] = '..';
   return rangeWithSecret;
 };
 
-const genRandomExpression = () => {
-  const startRange = [genRandomNum(0, 100)];
-  const diff = genRandomNum(1, 9);
+const genQuestion = () => {
+  const limitsSet = [0, 1, 9, 100];
+  const [minOfStartRange, minOfDiff, maxOfDiff, maxOfStartRange] = limitsSet;
+  const diff = genRandomNum(minOfDiff, maxOfDiff);
+  const startRange = [genRandomNum(minOfStartRange, maxOfStartRange)];
   const numbers = hideRandomIndex(genRange(startRange, diff));
-  const arrToStr = numbers.join(' ');
-  return arrToStr;
+  return numbers.join(' ');
 };
 
-const prepareExpression = (exp) => {
-  const strToArr = exp.split(' ');
-  const index = strToArr.indexOf('..');
-  const missingItem = (Number(strToArr[index - 1]) + Number(strToArr[index + 1])) / 2;
+const getAnswer = (value) => {
+  const numbers = value.split(' ');
+  const indexOfSecret = numbers.indexOf('..');
+  const nextNumber = (numbers[1] !== '..') ? numbers[1] : numbers[2];
+  const diff = (nextNumber - numbers[0]) / numbers.indexOf(nextNumber);
+  const missingItem = Number(numbers[0]) + Number(diff) * indexOfSecret;
   return `${missingItem}`;
 };
 
+const questions = genListOfQuestions(genQuestion);
+const correctAnswers = genListOfAnswers(getAnswer, questions);
+
 const startProgression = () => {
-  startQuiz(name, condition, genRandomExpression, prepareExpression);
+  startQuiz(description, questions, correctAnswers);
 };
 
 export default startProgression;
